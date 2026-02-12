@@ -10,12 +10,8 @@ WORKDIR /app
 # Copia apenas os arquivos de dependência primeiro
 COPY package*.json ./
 
-# Define a variável de ambiente para pular a checagem do Python durante o npm install
-# Isso é crucial porque o script de preinstall do youtube-dl-exec pode falhar em alguns ambientes Docker
-ENV YOUTUBE_DL_SKIP_PYTHON_CHECK=1
-
 # Instala as dependências
-RUN npm install
+RUN YOUTUBE_DL_SKIP_PYTHON_CHECK=1 npm install
 
 # Copia o restante do código fonte
 COPY . .

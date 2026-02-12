@@ -19,6 +19,9 @@
       "bin-version-check": "5.0.0"
     }
   },
+  "scripts": {
+    "preinstall": "node -e \"if(process.env.YOUTUBE_DL_SKIP_PYTHON_CHECK!=='1'){process.env.YOUTUBE_DL_SKIP_PYTHON_CHECK='1'}\""
+  },
   "devDependencies": {
     "@types/cors": "^2.8.13",
     "@types/express": "^4.17.17",
