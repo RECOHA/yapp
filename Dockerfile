@@ -1,7 +1,10 @@
 FROM node:18-alpine
 
 # Instala o FFmpeg e Python (necessário para yt-dlp)
-RUN apk add --no-cache ffmpeg python3
+RUN apk add --no-cache ffmpeg python3 py3-pip
+
+# Cria link simbólico para que 'python' aponte para 'python3'
+RUN ln -sf python3 /usr/bin/python
 
 WORKDIR /app
 
