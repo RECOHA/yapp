@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node dist/index.js",
     "dev": "ts-node-dev --respawn --transpile-only src/index.js",
-    "build": "tsc"
+    "build": "tsc",
+    "preinstall": "node -e \"if(process.env.YOUTUBE_DL_SKIP_PYTHON_CHECK!=='1'){process.env.YOUTUBE_DL_SKIP_PYTHON_CHECK='1'}\""
   },
   "dependencies": {
     "cors": "^2.8.5",
@@ -18,9 +19,6 @@
     "youtube-dl-exec": {
       "bin-version-check": "5.0.0"
     }
-  },
-  "scripts": {
-    "preinstall": "node -e \"if(process.env.YOUTUBE_DL_SKIP_PYTHON_CHECK!=='1'){process.env.YOUTUBE_DL_SKIP_PYTHON_CHECK='1'}\""
   },
   "devDependencies": {
     "@types/cors": "^2.8.13",
