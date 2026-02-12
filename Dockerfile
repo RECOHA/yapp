@@ -1,22 +1,23 @@
 FROM node:18-alpine
 
 # Instala o FFmpeg e Python (necessário para yt-dlp)
-RUN apk add --no-cache ffmpeg python3 py3-pip
-
-# Cria link simbólico para que 'python' aponte para 'python3'
-RUN ln -sf python3 /usr/bin/python
+# Instala python3 e garante que existe um binário 'python'
+RUN apk add --no-cache ffmpeg python3 py3-pip && \
+    ln -sf /usr/bin/python3 /usr/bin/python
 
 WORKDIR /app
 
-# Copia os arquivos de dependência
+# Copia apenas os arquivos de dependência primeiro
 COPY package*.json ./
 
-# Instala as dependências
-# Pula a verificação do binário python durante a instalação, pois já garantimos que ele existe
+# Define a variável de ambiente para pular a checagem do Python durante o npm install
+# Isso é crucial porque o script de preinstall do youtube-dl-exec pode falhar em alguns ambientes Docker
 ENV YOUTUBE_DL_SKIP_PYTHON_CHECK=1
+
+# Instala as dependências
 RUN npm install
 
-# Copia o código fonte
+# Copia o restante do código fonte
 COPY . .
 
 # Build do TypeScript
