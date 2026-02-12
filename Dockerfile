@@ -12,6 +12,8 @@ WORKDIR /app
 COPY package*.json ./
 
 # Instala as dependências
+# Pula a verificação do binário python durante a instalação, pois já garantimos que ele existe
+ENV YOUTUBE_DL_SKIP_PYTHON_CHECK=1
 RUN npm install
 
 # Copia o código fonte
